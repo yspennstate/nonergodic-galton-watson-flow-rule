@@ -1,0 +1,22 @@
+PASS S1 fixed point: (3/5)(1/2)^2 + (2/5)(1 - (1/2)^3) = 1/2
+PASS S2 AND of two pairs: P(R != R') = d - d^2/2  -d**2/2 + d
+PASS S3 OR of three pairs: P(R != R') = (3d - 3d^2 + d^3)/4  d**3/4 - 3*d**2/4 + 3*d/4
+PASS S4 the mixed step keeps the family: P(1,0) = P(0,1) = d'/2, P(1,1) = P(0,0) = (1 - d')/2
+PASS S5 d' = 9d/10 - 3d^2/5 + d^3/10 = d (3 - d)^2 / 10  d*(d - 3)**2/10
+PASS S6 d' - 9d/10 = -d^2 (6 - d)/10, <= 0 on [0, 6]
+PASS S7 the marginal stays 1/2
+PASS E1.0 law of q_0: total mass 1, E q = 1/2, E 2q(1-q) = d_0 (1 atoms)  d_0 = 1/2
+PASS E1.1 law of q_1: total mass 1, E q = 1/2, E 2q(1-q) = d_1 (2 atoms)  d_1 = 5/16
+PASS E1.2 law of q_2: total mass 1, E q = 1/2, E 2q(1-q) = d_2 (7 atoms)  d_2 = 1849/8192
+PASS E1.3 law of q_3: total mass 1, E q = 1/2, E 2q(1-q) = d_3 (85 atoms)  d_3 = 955039062121/5497558138880
+PASS E1.4 E q_4 = 1/2 and E 2 q_4 (1 - q_4) = d_4 (85 atoms of q_3 enumerated)  d_4 = 230563727655067377100699276607263666681/1661534994731144841129758825350430720000 = 0.138765
+PASS E2.0 martingale on all 1 trees of depth 0 (their GW mass sums to 1)
+PASS E2.1 martingale on all 2 trees of depth 1 (their GW mass sums to 1)
+PASS E2.2 martingale on all 12 trees of depth 2 (their GW mass sums to 1)
+PASS E2.3 martingale on 40 random trees of depth 3 with at most 12 bottom vertices
+PASS E3 pivot tree mean matrix = diag(9/10, 9/10), a pivotal child has its parent's colour  {(0, 0): Fraction(9, 10), (0, 1): Fraction(0, 1), (1, 0): Fraction(0, 1), (1, 1): Fraction(9, 10)}
+PASS E4 P(C = 1) = 1/2 computed from the first three generations
+PASS E5 one step of the flow from GW leaves the law of the first two generations unchanged (12 shapes)
+PASS M1 population dynamics, 400000 samples: |mean 2q(1-q) - d_n| <= 0.005 for n <= 80  max deviation 0.00030
+PASS M2 at n = 80 the mean of q is 1/2 +- 0.005 and at least 99% of samples are within 1e-6 of {0, 1}  mean 0.50169, fraction 0.99981, d_80 = 2.366e-05
+21 checks, 0 failed

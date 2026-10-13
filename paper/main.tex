@@ -1,0 +1,241 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,enumitem,booktabs}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\E}{\mathbb E}
+\newcommand{\T}{\mathcal T}
+\newcommand{\GW}{\mathrm{GW}}
+\newcommand{\one}{\mathbf 1}
+
+\hypersetup{pdftitle={A nonergodic flow rule with Galton-Watson stationary measure},pdfauthor={Yitzchak Shmalo}}
+
+\title[A nonergodic flow rule]{A nonergodic flow rule with Galton--Watson stationary measure}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{13 October 2026}
+\subjclass[2020]{60J80, 60J05, 37A25}
+\keywords{Galton--Watson tree, flow rule, stationary measure, ergodicity, tree automaton, recursive distributional equation}
+
+\begin{document}
+\begin{abstract}
+A flow rule assigns to every infinite rooted tree a unit flow from the root to infinity, consistently with passage to the subtrees of the children of the root, and it defines a Markov chain on the space of trees that moves from a tree to the subtree of a child chosen according to the flow. Lyons, Pemantle and Peres showed that the chain is ergodic when a stationary measure absolutely continuous with respect to a Galton--Watson measure $\GW$ exists and the flow is positive on every child, and asked whether a flow rule with a stationary measure equivalent to $\GW$ must give an ergodic chain. It need not. For the Galton--Watson measure with offspring distribution $p_2=3/5$, $p_3=2/5$ there is a flow rule for which $\GW$ itself is stationary and the stationary chain has an invariant event of probability $1/2$. The rule follows a colouring of the vertices that is a measurable function of the tree, in which a vertex with two children takes the AND of their colours and a vertex with three children the OR: the flow is spread evenly over the children that have the colour of the root. The two colour classes give the ergodic decomposition of the chain.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+Let $\T$ be the space of rooted, labelled, locally finite trees with its usual metric, in which two trees are close when they agree up to a large generation \cite[Exercise~5.2]{LP}. For a tree $T$ and a vertex $x$ of $T$, let $T^x$ be the subtree of descendants of $x$, rooted at $x$, and write $|x|$ for the generation of $x$. A \emph{flow} on $T$ is a unit flow from the root to infinity; we write $\theta(x)$ for the amount of flow through the vertex $x$, so that $\theta(\text{root})=1$ and $\theta(x)$ is the sum of $\theta$ over the children of $x$. If $\theta(x)>0$, then $\theta^x(y)=\theta(y)/\theta(x)$, $y\in T^x$, is a flow on $T^x$. Since a finite tree carries no flow, these notions concern the Borel set $\T_\infty$ of infinite trees.
+
+Following Lyons, Pemantle and Peres \cite{LPP} (see \cite[Section~17.5]{LP}), a \emph{flow rule} is a Borel map $\Theta$ that assigns to every $T\in\T_\infty$ a flow $\Theta_T$ on $T$ such that
+\[
+|x|=1,\ \Theta_T(x)>0\ \Longrightarrow\ (\Theta_T)^x=\Theta_{T^x},
+\]
+and, as Lyons and Peres assume throughout, that is equivariant: $\Theta_{\varphi(T)}(\varphi(x))=\Theta_T(x)$ for every rooted isomorphism $\varphi$ of $T$ onto a tree $\varphi(T)$. A flow rule defines the Markov chain on $\T_\infty$ with transition kernel
+\[
+p(T,\cdot)=\sum_{|x|=1}\Theta_T(x)\,\delta_{T^x}.
+\]
+A probability measure $\mu$ is $\Theta$-\emph{stationary} if $\mu(A)=\int p(T,A)\,d\mu(T)$ for every Borel set $A$; a Borel set $A$ is \emph{invariant} if $p(T,A)=\one_A(T)$ for $\mu$-a.e.\ $T$; and the chain with initial distribution $\mu$ is \emph{ergodic} if every invariant set has $\mu$-measure $0$ or $1$. For stationary $\mu$ this is equivalent to the ergodicity of the shift on the space of paths of the chain \cite[Corollary~17.3]{LP}.
+
+Let $\GW$ be a Galton--Watson measure on $\T$ whose offspring distribution $(p_k)$ satisfies $p_0=0$ and $p_k<1$ for all $k$, the standing assumption of \cite[Chapter~17]{LP}; then $\GW$-a.e.\ tree is infinite. Proposition~17.17 of \cite{LP} (Proposition~5.2 of \cite{LPP}) states that if $\Theta_T(x)>0$ for $\GW$-a.e.\ $T$ and every $|x|=1$, then the chain with initial distribution $\GW$ is ergodic, and a $\Theta$-stationary measure that is absolutely continuous with respect to $\GW$ is equivalent to $\GW$ and gives an ergodic stationary chain. Lyons and Peres write that they do not know whether the first hypothesis is necessary for the final conclusion, and ask \cite[Question~17.18]{LP}, as in \cite[Section~10, Question~3]{LPP}:
+
+\begin{quote}
+If a flow rule has a stationary measure equivalent to $\GW$, must the associated Markov chain be ergodic?
+\end{quote}
+
+\noindent Without the positivity hypothesis absolute continuity does not imply equivalence: in \cite[Exercise~17.22]{LP}, with $p_3=p_4=1/2$, the flow follows an $n$-ray, a ray along which every vertex has exactly $n$ children, when there is one, and the stationary measure $(\GW_{A_3}+\GW_{A_4})/2$, where $A_n$ is the event that the tree contains an $n$-ray, is absolutely continuous with respect to $\GW$ and gives a nonergodic chain; it is not equivalent to $\GW$, since $\GW(A_3\cup A_4)<1$. The answer to the question is also negative.
+
+\begin{theorem}\label{thm:main}
+Let $\GW$ be the Galton--Watson measure with offspring distribution $p_2=3/5$, $p_3=2/5$. There are a flow rule $\Theta$ and an isomorphism-invariant Borel set $B\subset\T_\infty$ with the following properties.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item $\GW$ is $\Theta$-stationary.
+\item $\GW(B)=1/2$ and $p(T,B)=\one_B(T)$ for $\GW$-a.e.\ $T$. Consequently, for every $\Theta$-stationary probability measure $\mu$ equivalent to $\GW$, and in particular for $\mu=\GW$, the chain with initial distribution $\mu$ is not ergodic.
+\item The measures $\GW_1=\GW(\cdot\mid B)$ and $\GW_0=\GW(\cdot\mid B^c)$ are $\Theta$-stationary, and the chain with initial distribution $\GW_r$ is ergodic for $r=0,1$. The invariant sets of the chain with initial distribution $\GW$ are, up to $\GW$-null sets, $\emptyset$, $B$, $B^c$ and $\T_\infty$.
+\end{enumerate}
+\end{theorem}
+
+In (ii), $\mu(B)\in(0,1)$ because $\mu$ is equivalent to $\GW$, and $B$ is invariant for $\mu$ because $\mu\ll\GW$; this is the step from the first sentence to the second. Lyons and Peres work with labelled trees and test stationarity and invariance only on isomorphism-invariant events \cite[Chapter~17]{LP}. Theorem~\ref{thm:main} holds in that form too: stationarity on all Borel sets implies stationarity on these events, $B$ is isomorphism-invariant, and ergodicity on all Borel sets implies ergodicity on these events. Part (iii) says that $\GW=(\GW_0+\GW_1)/2$ is the ergodic decomposition of the stationary chain into two mutually singular stationary measures.
+
+The set $B$ is the event that the root has colour $1$ in a colouring of the vertices that is a function of the tree: a vertex with two children takes the AND of the colours of its children and a vertex with three children the OR (Lemma~\ref{lem:colour}). Under both rules a vertex has at least one child of its own colour, and the flow rule spreads the flow evenly over the children of the root that have the colour of the root. Under $\GW$ the colour of the root is Bernoulli$(1/2)$, and $1/2$ is the solution in $(0,1)$ of the corresponding equation $x=\frac35x^2+\frac25\bigl(1-(1-x)^3\bigr)$, whose other solutions are $0$ and $1$. The main point is that the colour is determined by the tree, without extra randomness. Section~\ref{sec:colour} proves this by a martingale and an exact second-moment recursion, Section~\ref{sec:proof} constructs the flow rule and proves Theorem~\ref{thm:main}, and Section~\ref{sec:remarks} places the colouring in the framework of tree automata and recursive distributional equations.
+
+\section{The colouring}\label{sec:colour}
+
+We use the Ulam--Harris labelling: a tree is a set $t$ of finite words over $\{1,2,\dots\}$ that contains the empty word $\varnothing$ (the root), contains every prefix of each of its words, and contains $u1,\dots,u(i-1)$ whenever it contains $ui$; the children of $u$ are the words $ui\in t$, their number $k_u(t)$ is finite, $|u|$ is the length of $u$, and $t^u=\{w:uw\in t\}$. For $n\ge0$ let $t|n=\{u\in t:|u|\le n\}$. A rooted isomorphism of $t$ onto $t'$ maps the children of each vertex onto the children of its image. Under $\GW$, conditionally on $k_\varnothing(T)=k$ the trees $T^1,\dots,T^k$ are independent with law $\GW$, and for every word $u$, conditionally on $u\in T$, the tree $T^u$ has law $\GW$.
+
+Let $\T_{23}$ be the closed set of trees in which every vertex has two or three children; it carries $\GW$. Put
+\[
+f_2(a,b)=ab,\qquad f_3(a,b,c)=1-(1-a)(1-b)(1-c),
+\]
+the probability that the AND of two, or the OR of three, independent Bernoulli variables with the given parameters equals $1$. On $\{0,1\}^k$, $f_2$ is the AND and $f_3$ the OR. Let $t\in\T_{23}$ and $n\ge0$. Colour the vertices of generation $n$ of $t$ independently, each with colour $1$ with probability $1/2$, and colour the vertices of generations $n-1,\dots,0$ in turn, a vertex $u$ with colour $f_{k_u(t)}$ of the colours of its children. Let $q_n(t)$ be the probability that the root gets colour $1$.
+
+\begin{lemma}\label{lem:q}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item For $t\in\T_{23}$ with $k_\varnothing(t)=k$ and $n\ge0$, $q_{n+1}(t)=f_k\bigl(q_n(t^1),\dots,q_n(t^k)\bigr)$; $q_0=1/2$. Each $q_n$ depends only on $t|n$ and is isomorphism-invariant.
+\item Let $T$ have law $\GW$ and let $\mathcal F_n$ be the $\sigma$-field generated by $T|n$. Then $(q_n(T))_{n\ge0}$ is an $(\mathcal F_n)$-martingale, and $\E q_n(T)=1/2$.
+\item The numbers $d_n=\E\bigl[2q_n(T)(1-q_n(T))\bigr]$ satisfy $d_0=1/2$ and
+\begin{equation}\label{eq:rec}
+d_{n+1}=\frac{d_n(3-d_n)^2}{10}=\frac9{10}d_n-\frac35d_n^2+\frac1{10}d_n^3 ,
+\end{equation}
+and $0\le d_n\le\frac12\bigl(\frac9{10}\bigr)^n$ for all $n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) Generation $n+1$ of $t$ is the disjoint union of the generations $n$ of $t^1,\dots,t^k$. The colours of the children of the root are therefore independent, and the $i$th child has colour $1$ with probability $q_n(t^i)$; this gives the recursion, and the remaining assertions follow from it by induction, since $f_2$ and $f_3$ are symmetric.
+
+(b) Let $V_n$ be generation $n$ of $T$, and for $x\in[0,1]^{V_n}$ let $\Phi(x)$ be the probability that the root gets colour $1$ when the vertices $v\in V_n$ receive independent colours, colour $1$ with probability $x_v$, and the colours are propagated to the root as above. Then $\Phi$ is a polynomial, affine in each variable, determined by $T|n$. If generation $n+1$ is coloured as in the definition of $q_{n+1}$, a vertex $v\in V_n$ receives colour $1$ with probability $g_v=f_{k_v(T)}(\frac12,\dots,\frac12)$, which is $1/4$ if $v$ has two children and $7/8$ if it has three, independently over $v$. Hence $q_{n+1}(T)=\Phi\bigl((g_v)_{v\in V_n}\bigr)$. Given $\mathcal F_n$, the numbers $k_v(T)$, $v\in V_n$, are independent with law $(p_2,p_3)$, so the $g_v$ are independent with mean $\frac35\cdot\frac14+\frac25\cdot\frac78=\frac12$. Since $\Phi$ is affine in each variable, $\E[q_{n+1}(T)\mid\mathcal F_n]=\Phi(\frac12,\dots,\frac12)=q_n(T)$.
+
+(c) Given $T$, colour generation $n$ twice, independently, and let $R_n$ and $R'_n$ be the two resulting colours of the root. Then $\Pp(R_n\ne R'_n\mid T)=2q_n(T)(1-q_n(T))$, so $d_n=\Pp(R_n\ne R'_n)$, and $d_0=1/2$. By (b), $\Pp(R_n=1)=\Pp(R'_n=1)=1/2$, so the law of $(R_n,R'_n)$ is
+\[
+\Pp(1,0)=\Pp(0,1)=\frac{d_n}2,\qquad \Pp(1,1)=\Pp(0,0)=\frac{1-d_n}2 .
+\]
+Given $k_\varnothing(T)=k$, the trees $T^1,\dots,T^k$ are independent with law $\GW$ and the two colourings of generation $n+1$ of $T$ restrict to two independent colourings of generation $n$ of each $T^i$, independent over $i$. So the pairs of colours of the children of the root are independent copies of $(R_n,R'_n)$, and $(R_{n+1},R'_{n+1})$ is obtained by applying $f_k$ to each coordinate. If $k=2$, the AND of both coordinates is $1$ with probability $((1-d_n)/2)^2$ and the AND of one coordinate with probability $1/4$, so
+\[
+\Pp(R_{n+1}\ne R'_{n+1}\mid k=2)=2\Bigl(\frac14-\frac{(1-d_n)^2}4\Bigr)=d_n-\frac{d_n^2}2 .
+\]
+If $k=3$, the OR of both coordinates is $0$ with probability $((1-d_n)/2)^3$ and the OR of one coordinate with probability $1/8$, so
+\[
+\Pp(R_{n+1}\ne R'_{n+1}\mid k=3)=2\Bigl(\frac18-\frac{(1-d_n)^3}8\Bigr)=\frac{3d_n-3d_n^2+d_n^3}4 .
+\]
+Averaging with weights $3/5$ and $2/5$ gives \eqref{eq:rec}. For $0\le d\le1$,
+\[
+0\le\frac{d(3-d)^2}{10}=\frac9{10}d-\frac{d^2(6-d)}{10}\le\frac9{10}d ,
+\]
+and the bound follows by induction from $d_0=1/2$.
+\end{proof}
+
+Let $E$ be the set of $t\in\T_{23}$ for which $\lim_nq_n(t)$ exists and lies in $\{0,1\}$, and let $G$ be the set of $t\in\T_{23}$ such that $t^u\in E$ for every $u\in t$. For $t\in G$ put $C(t)=\lim_nq_n(t)$.
+
+\begin{lemma}\label{lem:colour}
+\begin{enumerate}[label=\textup{(\alph*)}]
+\item $E$ and $G$ are isomorphism-invariant Borel sets, $C$ is an isomorphism-invariant Borel function on $G$, and $t^u\in G$ whenever $t\in G$ and $u\in t$.
+\item $\GW(G)=1$ and $\GW(\{t\in G:C(t)=1\})=1/2$.
+\item For every $t\in G$ with $k_\varnothing(t)=k$, $C(t)=f_k\bigl(C(t^1),\dots,C(t^k)\bigr)$: the colour of the root is the AND of the colours of its children if $k=2$ and their OR if $k=3$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) By Lemma~\ref{lem:q}(a), each $q_n$ is locally constant, hence continuous, on $\T_{23}$, so $E$ is Borel and $C$ is Borel on $G$. For each word $u$ the set $\{t:u\in t\}$ is open and closed and $t\mapsto t^u$ is continuous on it, so $G$, the intersection over all words $u$ of the sets $\{t\in\T_{23}:u\notin t\text{ or }t^u\in E\}$, is Borel. Isomorphism invariance follows from that of the $q_n$, since a rooted isomorphism maps each subtree $t^u$ onto a tree isomorphic to it. Finally $(t^u)^w=t^{uw}$.
+
+(b) By Lemma~\ref{lem:q}(b), $q_n(T)$ converges $\GW$-a.s., and by Lemma~\ref{lem:q}(c), $\E\sum_nq_n(T)(1-q_n(T))=\sum_nd_n/2\le5/2$, so $q_n(T)(1-q_n(T))\to0$ a.s. Hence the limit lies in $\{0,1\}$ a.s., that is, $\GW(E)=1$. For each word $u$, $\GW(u\in T,\ T^u\notin E)=\GW(u\in T)\GW(E^c)=0$, and since there are countably many words, $\GW(G)=1$. By bounded convergence, $\GW(C=1)=\lim_n\E q_n(T)=1/2$.
+
+(c) Let $n\to\infty$ in Lemma~\ref{lem:q}(a); $t^1,\dots,t^k\in G$ by (a), and $f_k$ is continuous.
+\end{proof}
+
+\section{The flow rule}\label{sec:proof}
+
+For $t\in G$ with $k_\varnothing(t)=k$, let $S(t)=\{i\le k:C(t^i)=C(t)\}$. This set is not empty, by Lemma~\ref{lem:colour}(c): if $k=2$ and $C(t)=1$, both children have colour $1$; if $k=2$ and $C(t)=0$, some child has colour $0$; if $k=3$ and $C(t)=1$, some child has colour $1$; and if $k=3$ and $C(t)=0$, all three children have colour $0$. For $t\in\T_\infty\setminus G$, let $S(t)$ be the set of children $i$ of the root for which $t^i$ is infinite, which is not empty since the root has finitely many children. In both cases $t^i$ is infinite for $i\in S(t)$, because the trees in $\T_{23}$ are infinite. Put $\sigma_t(i)=1/|S(t)|$ for $i\in S(t)$ and $\sigma_t(i)=0$ for the other children of the root, and define $\Theta_t$ for $t\in\T_\infty$ by $\Theta_t(\varnothing)=1$ and, for $u\in t$ and $ui\in t$,
+\[
+\Theta_t(ui)=\Theta_t(u)\,\sigma_{t^u}(i)\quad\text{if }\Theta_t(u)>0,\qquad \Theta_t(ui)=0\quad\text{otherwise}.
+\]
+By induction on $|u|$, $\Theta_t(u)>0$ implies that $t^u$ is infinite, so $\sigma_{t^u}$ is defined, and then $\sum_i\Theta_t(ui)=\Theta_t(u)$. Thus $\Theta_t$ is a flow on $t$. For $|x|=1$ with $\Theta_t(x)>0$, induction on $|w|$ gives $\Theta_t(xw)=\Theta_t(x)\Theta_{t^x}(w)$ for $w\in t^x$, because $(t^x)^w=t^{xw}$; this is the consistency condition. A rooted isomorphism $\varphi$ of $t$ onto $t'$ maps the children of the root onto the children of the root and induces, for each $i$, a rooted isomorphism of $t^i$ onto $t'^{\varphi(i)}$; since $G$, $C$ and finiteness are isomorphism-invariant, $\varphi$ maps $S(t)$ onto $S(t')$, so $\sigma_{t'}(\varphi(i))=\sigma_t(i)$, and by induction $\Theta_{t'}(\varphi(u))=\Theta_t(u)$ for all $u\in t$. For each $u$ the map $t\mapsto\Theta_t(u)$ is Borel, by Lemma~\ref{lem:colour}(a). So $\Theta$ is a flow rule, and its transition kernel is
+\begin{equation}\label{eq:kernel}
+p(t,\cdot)=\frac1{|S(t)|}\sum_{i\in S(t)}\delta_{t^i}.
+\end{equation}
+
+Let $B=\{t\in G:C(t)=1\}$ and $G_0=\{t\in G:C(t)=0\}$, and for $r\in\{0,1\}$ let $\GW_r$ be $\GW$ conditioned on $\{t\in G:C(t)=r\}$. By Lemma~\ref{lem:colour}(b), $\GW(B)=\GW(G_0)=1/2$, $\GW_1=\GW(\cdot\mid B)$, $\GW_0=\GW(\cdot\mid B^c)$ and $\GW=(\GW_0+\GW_1)/2$.
+
+\begin{lemma}\label{lem:cond}
+Let $T$ have law $\GW$, let $K=k_\varnothing(T)$ and $c_i=C(T^i)$, $i\le K$. For $k\in\{2,3\}$ and $c\in\{0,1\}^k$, the event $\{K=k,\ (c_1,\dots,c_k)=c\}$ has probability $p_k2^{-k}$, and conditionally on it $T^1,\dots,T^k$ are independent and $T^i$ has law $\GW_{c_i}$.
+\end{lemma}
+
+\begin{proof}
+Conditionally on $K=k$, the $T^i$ are independent with law $\GW$, and the event $\{C(T^i)=c_i\}$ depends on $T^i$ alone and has probability $1/2$ by Lemma~\ref{lem:colour}(b). Conditioning independent random trees on events that each concern one of them leaves them independent, with the conditioned laws.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+(i) Let $A$ be a Borel set and $r\in\{0,1\}$. Let $T$, $K$ and $c$ be as in Lemma~\ref{lem:cond}. On the event $\{T\in G\}$, which has probability $1$, $C(T)=f_K(c)$ by Lemma~\ref{lem:colour}(c), and by \eqref{eq:kernel} $p(T,A)=N^{-1}\sum_{i:\,c_i=C(T)}\one_A(T^i)$ with $N=|\{i:c_i=C(T)\}|$; both $C(T)$ and $N$ are functions of $(K,c)$. By Lemma~\ref{lem:cond}, on an event $\{K=k,\ c=c'\}$ with $f_k(c')=r$,
+\[
+\E\bigl[p(T,A)\bigm|K=k,\ c=c'\bigr]=\frac1N\sum_{i:\,c'_i=r}\GW_r(A)=\GW_r(A).
+\]
+Summing over the events $\{K=k,\ c=c'\}$ with $f_k(c')=r$, whose union is $\{C(T)=r\}$ up to a null set, gives
+\begin{equation}\label{eq:statr}
+\int p(t,A)\,d\GW_r(t)=\frac{\E\bigl[p(T,A)\one\{C(T)=r\}\bigr]}{\GW(C=r)}=\GW_r(A).
+\end{equation}
+So $\GW_0$ and $\GW_1$ are $\Theta$-stationary, and so is their average $\GW$.
+
+(ii) For $t\in G$, every $i\in S(t)$ has $t^i\in G$ and $C(t^i)=C(t)$, so by \eqref{eq:kernel} $p(t,B)=\one_B(t)$. Since $\GW(G)=1$, this holds for $\GW$-a.e.\ $t$, and $\GW(B)=1/2$. The set $B$ is isomorphism-invariant by Lemma~\ref{lem:colour}(a). If $\mu$ is a $\Theta$-stationary probability measure equivalent to $\GW$, then $p(t,B)=\one_B(t)$ for $\mu$-a.e.\ $t$ and $0<\mu(B)<1$, so the chain with initial distribution $\mu$ is not ergodic.
+
+(iii) Stationarity of $\GW_r$ is \eqref{eq:statr}. Fix $r$, put $G_r'=\{t\in G:C(t)=r\}$, and let $A$ be an invariant set for the chain with initial distribution $\GW_r$. For $t\in G_r'$ the measure $p(t,\cdot)$ is carried by $G_r'$, so $A'=A\cap G_r'$ satisfies $p(t,A')=p(t,A)=\one_A(t)=\one_{A'}(t)$ for $\GW_r$-a.e.\ $t$. For such $t$, by \eqref{eq:kernel}, $p(t,A')$ is the proportion of the $i\in S(t)$ with $t^i\in A'$; as it equals $0$ or $1$, $t\in A'$ holds if and only if $t^i\in A'$ for every $i\in S(t)$, and if and only if $t^i\in A'$ for some $i\in S(t)$. Let $\alpha=\GW_r(A')=\GW_r(A)$, and condition on the event $D=\{K=2,\ c=(r,r)\}$, on which $C(T)=f_2(r,r)=r$ and $S(T)=\{1,2\}$; it has $\GW_r$-probability $(p_2/4)/(1/2)=3/10$. By Lemma~\ref{lem:cond}, given $D$ the trees $T^1$ and $T^2$ are independent with law $\GW_r$. Hence
+\[
+\alpha^2=\Pp(T^1\in A',\ T^2\in A'\mid D)=\Pp(T\in A'\mid D)=1-\Pp(T^1\notin A',\ T^2\notin A'\mid D)=1-(1-\alpha)^2 ,
+\]
+so $2\alpha(1-\alpha)=0$ and $\alpha\in\{0,1\}$. Thus the chain with initial distribution $\GW_r$ is ergodic. If $A$ is invariant for the chain with initial distribution $\GW$, it is invariant for $\GW_0$ and $\GW_1$, which are absolutely continuous with respect to $\GW$, so $\GW_0(A),\GW_1(A)\in\{0,1\}$; since $\GW_1$ and $\GW_0$ are carried by $B$ and $G_0$, which partition $\T_\infty$ up to a $\GW$-null set, $A$ coincides up to a $\GW$-null set with $\emptyset$, $B$, $B^c$ or $\T_\infty$.
+\end{proof}
+
+\section{Remarks}\label{sec:remarks}
+
+\begin{remark}\label{rem:positive}
+The flow gives no mass to the children of the root whose colour differs from that of the root. Under $\GW$ the children of the root do not all have the same colour with probability $p_2\cdot\frac12+p_3\cdot\frac34=\frac35$, so the positivity hypothesis of \cite[Proposition~17.17]{LP} fails on a set of positive measure, as it must for any flow rule with the properties of Theorem~\ref{thm:main}.
+\end{remark}
+
+\begin{remark}\label{rem:general}
+The proof uses only the following properties of $C$: it is an isomorphism-invariant Borel function, defined on a set of full $\GW$-measure that is closed under passage to subtrees, with values in a finite set $\Sigma$; at every vertex the colour is a fixed function $A_k$ of the colours of the $k$ children; a colour $\sigma=A_k(c_1,\dots,c_k)$ always occurs among the $c_i$; and $C$ is not $\GW$-a.s.\ constant. For such a colouring the flow rule that spreads the flow evenly over the children of the colour of the root has $\GW$ as a stationary measure, by the computation in the proof of (i), and each colour class of positive measure is an invariant set, of measure less than $1$ because $C$ is not a.s.\ constant. In the terminology of Johnson, Podder and Skerman \cite{JPS}, $C$ is an interpretation of the tree automaton $(A_k)$; isomorphism invariance is needed for the flow rule to be equivariant.
+\end{remark}
+
+\begin{remark}\label{rem:jps}
+The colour of Lemma~\ref{lem:colour} is the interpretation of the AND/OR automaton that corresponds to its fixed point Bernoulli$(1/2)$, and it is unique up to $\GW$-null sets by \cite[Proposition~1.6]{JPS}. Its existence also follows from \cite[Theorem~1.7]{JPS}, which states that for two colours and an offspring distribution with finite logarithmic moment a fixed point has an interpretation if and only if the associated pivot tree, a multitype Galton--Watson tree, is subcritical or critical. There a vertex is pivotal if changing its colour, and recolouring the vertices above it by the automaton, changes the colour of the root, so that the pivotal children of a pivotal vertex are the children whose change of colour changes the colour of that vertex; for AND and OR such a child has the colour of its parent. Given that a vertex has colour $1$, it has two children of colour $1$, both pivotal, with probability $3/10$, and three children exactly one of which has colour $1$, which is then pivotal, with probability $3/10$; given colour $0$, it has two children of different colours, of which the one with colour $0$ is pivotal, with probability $3/5$, and three children of colour $0$, all pivotal, with probability $1/10$. The mean matrix of the pivot tree is therefore $\mathrm{diag}(9/10,9/10)$, and the tree is subcritical. The number $9/10$ is also the slope at $0$ of the recursion \eqref{eq:rec}. In the language of Aldous and Bandyopadhyay \cite{AB}, Lemma~\ref{lem:colour} says that Bernoulli$(1/2)$ is an endogenous solution of the recursive distributional equation $X\overset{d}{=}f_K(X_1,\dots,X_K)$, and the proof of Lemma~\ref{lem:q}(c) is an instance of their bivariate approach: a coupling of two Bernoulli$(1/2)$ variables is determined by the probability $d$ that they differ, and $d\mapsto d(3-d)^2/10$ has no fixed point in $(0,1]$.
+\end{remark}
+
+\begin{remark}
+In the example of \cite[Exercise~17.22]{LP} the invariant sets $A_3$ and $A_4$ have positive measure but do not cover a set of full $\GW$-measure, which is why the stationary measure there is not equivalent to $\GW$. Here the invariant sets $B$ and $B^c$ cover everything, and $\GW$ itself is the stationary measure.
+\end{remark}
+
+\section{Computations}\label{sec:checks}
+
+The repository listed under Data availability contains a Python script, \texttt{checks.py}, with its output, and a Lean file, \texttt{Bounds.lean}, with its output. With SymPy, the script verifies the fixed point $f(1/2)=1/2$, the disagreement polynomials for AND and OR in the proof of Lemma~\ref{lem:q}(c) by enumerating pairs of colourings, the closure of the family of pair laws under the averaged step, the recursion \eqref{eq:rec} and the identity $\frac9{10}d-\frac{d(3-d)^2}{10}=\frac{d^2(6-d)}{10}$. In exact rational arithmetic it computes the laws of $q_0,\dots,q_3$ under $\GW$ (with $1$, $2$, $7$ and $85$ atoms) and the first two moments of $q_4$, and checks that $\E q_n=1/2$ and that $\E[2q_n(1-q_n)]$ equals $d_n$ from \eqref{eq:rec} for $n\le4$ ($d_1=5/16$, $d_2=1849/8192$, $d_4\approx0.13877$); it checks the martingale identity $\E[q_{n+1}(T)\mid T|n=t]=q_n(t)$ on all $1$, $2$ and $12$ trees $t$ of depth $0$, $1$ and $2$ and on $40$ random trees of depth $3$, computes the mean matrix of the pivot tree in Remark~\ref{rem:jps}, and checks that $\GW(C=1)=1/2$ and that one step of the chain started from $\GW$ leaves the law of the first two generations of the tree unchanged, the colours of the children of the root being, given the first three generations, independent with $\Pp(C(T^i)=1)=q_2(T^i)$. A population-dynamics simulation of the law of $q_n$ with $400{,}000$ samples agrees with $d_n$ to within $3\cdot10^{-4}$ for $n\le80$, and at $n=80$ more than $99.9\%$ of the samples lie within $10^{-6}$ of $\{0,1\}$. The Lean file, checked with Lean~4 \cite{MU21} (version 4.33.1) and Mathlib \cite{Mathlib20}, proves the disagreement identities, the recursion \eqref{eq:rec}, the inequality $0\le d(3-d)^2/10\le9d/10$ for $0\le d\le1$, the bound $d_n\le\frac12(\frac9{10})^n$ for every sequence that satisfies \eqref{eq:rec} with $d_0=1/2$, the summability of the bound, and the entries of the pivot mean matrix. These computations test the identities and inequalities used in the proofs; they are not part of them.
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation programme (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. On 6 September 2026 an agent running in OpenAI's Codex found the AND/OR construction with offspring distribution $p_2=3/5$, $p_3=2/5$, proved that the colour is a function of the tree by a martingale and second-moment argument, and proved that $\GW$ is stationary and that the colour classes are invariant. On 18 September 2026 two runs of an OpenAI model (GPT-5.6 Sol) re-derived the example, one of them proposing a two-parameter family of examples of the same kind, and on 10 October 2026 another Codex agent wrote out a proof with computer checks. On 13 October 2026 Claude Opus~5.5 (Anthropic), working in Claude Code, wrote the proof in its present form, including the measurability of the colour and of the flow rule and the ergodicity of the two colour classes in part (iii) of Theorem~\ref{thm:main}, searched the literature, and wrote the remarks, the computer checks, the Lean file and the manuscript. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+No data were used. The code and the Lean file are available at\\ \url{https://github.com/yspennstate/nonergodic-galton-watson-flow-rule}.
+
+\begin{thebibliography}{9}
+
+\bibitem{AB}
+D.~J.~Aldous and A.~Bandyopadhyay, A survey of max-type recursive distributional equations, \emph{Ann. Appl. Probab.} \textbf{15} (2005), 1047--1110.
+
+\bibitem{JPS}
+T.~Johnson, M.~Podder and F.~Skerman, Random tree recursions: which fixed points correspond to tangible sets of trees?, \emph{Random Structures Algorithms} \textbf{56} (2020), 796--837.
+
+\bibitem{LP}
+R.~Lyons and Y.~Peres, \emph{Probability on Trees and Networks}, Cambridge Series in Statistical and Probabilistic Mathematics~42, Cambridge University Press, New York, 2016. Numbering as in the corrected and updated paperback edition, version of 19 August 2026, at \url{https://rdlyons.pages.iu.edu/prbtree/}.
+
+\bibitem{LPP}
+R.~Lyons, R.~Pemantle and Y.~Peres, Ergodic theory on Galton--Watson trees: speed of random walk and dimension of harmonic measure, \emph{Ergodic Theory Dynam. Systems} \textbf{15} (1995), 593--619.
+
+\bibitem{MU21}
+L.~de~Moura and S.~Ullrich, The Lean~4 theorem prover and programming language, in \emph{Automated Deduction -- CADE~28}, Lecture Notes in Comput. Sci. \textbf{12699}, Springer, 2021, 625--635.
+
+\bibitem{Mathlib20}
+The mathlib Community, The Lean mathematical library, in \emph{Proceedings of the 9th ACM SIGPLAN International Conference on Certified Programs and Proofs (CPP 2020)}, ACM, 2020, 367--381.
+
+\end{thebibliography}
+\end{document}

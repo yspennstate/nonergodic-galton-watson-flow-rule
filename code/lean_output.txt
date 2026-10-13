@@ -1,0 +1,12 @@
+Output of `lake env lean Bounds.lean` (Lean 4.33.1, Mathlib 0df444a360eaa60ab8c11dca51a86af692955474),
+13 October 2026, followed by its exit status.
+'fixed_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+'and_disagreement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'or_disagreement' depends on axioms: [propext, Classical.choice, Quot.sound]
+'recursion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'step' depends on axioms: [propext, Classical.choice, Quot.sound]
+'geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'summable_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'pivot_mean_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'pivot_mean_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0
